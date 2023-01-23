@@ -1,16 +1,18 @@
 <script lang="ts" setup>
-import { tw } from "@/utils/tw";
 import { ref } from "vue";
-import InputSearch from "../components/InputSearch.vue";
-import { apiClient, ISearchAnimeResponse } from "../services/api";
+import { tw } from "@/utils/tw";
+import { useSearchAnimes } from "../queries/useSearchAnimes";
+
 import { ElScrollbar } from "element-plus";
+import InputSearch from "../components/InputSearch.vue";
 
+const input = ref("");
 const search = ref("");
-const items = ref<ISearchAnimeResponse["data"]>([]);
 
-async function handleSubmit(e: Event) {
-  const response = await apiClient.searchAnime({ queries: { q: search.value } });
-  items.value = response.data;
+const { isFetching, data: items } = useSearchAnimes(search);
+
+function handleSubmit(e: Event) {
+  search.value = input.value;
 }
 </script>
 
@@ -18,14 +20,16 @@ async function handleSubmit(e: Event) {
   <div :class="tw('w-full flex flex-col h-screen overflow-hidden')">
     <form @submit.prevent="handleSubmit" :class="tw('my-5 px-4')">
       <InputSearch
-        :value="search"
+        :value="input"
         name="search"
-        @input="(value) => (search = value)"
+        @input="(value) => (input = value)"
         placeholder="Search an anime"
       />
     </form>
 
     <el-scrollbar :class="tw('flex-1')">
+      {{ isFetching ? "Loading..." : "" }}
+
       <ul :class="tw('flex flex-col h-full overflow-y-auto pb-8 px-4')">
         <li
           v-for="item in items"
