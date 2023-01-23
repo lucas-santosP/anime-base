@@ -18,7 +18,7 @@ const emit = defineEmits<{
       @input="(e) => emit('input', (e.target as HTMLInputElement).value)"
       :class="
         tw(
-          'w-full bg-gray-600 p-2 focus:ring focus:ring-blue-600 focus:outline-none border-2 border-gray-400',
+          'w-full bg-gray-700 p-2 rounded-md focus:ring focus:ring-blue-600/70 focus:outline-none border-2 border-gray-500',
           props.class
         )
       "
@@ -26,13 +26,14 @@ const emit = defineEmits<{
 
     <button
       type="submit"
+      @submit="emit('submit')"
       :class="
         tw(
-          'bg-none h-full px-5 hover:bg-gray-500/40 text-white absolute top-1/2 right-0 transform -translate-y-1/2'
+          'bg-none transition-all font-medium h-full px-5 hover:bg-gray-500/40 text-white absolute top-1/2 right-0 transform -translate-y-1/2'
         )
       "
     >
-      Submit
+      Search
     </button>
   </div>
 </template>
