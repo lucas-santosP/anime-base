@@ -18,6 +18,10 @@ const { isFetching, data: animes, error } = useSearchAnimes(search);
 function handleSubmitSearch(e: Event) {
   search.value = input.value;
 }
+
+function handleSelectAnime(id: number) {
+  console.log("id", id);
+}
 </script>
 
 <template>
@@ -27,25 +31,29 @@ function handleSubmitSearch(e: Event) {
         :value="input"
         name="search"
         @input="(value) => (input = value)"
-        placeholder="Search an anime"
+        placeholder="Search an anime..."
       />
     </form>
 
     <el-scrollbar :class="tw('flex-1')">
-      <ul :class="tw('flex flex-col h-full overflow-y-auto pb-8 px-4')">
+      <ul :class="tw('flex flex-col h-full overflow-y-auto pb-8 pt-2 px-4')">
         <AnimeListError v-if="error" :error="error" />
         <AnimeListLoading v-if="isFetching" :repeat="5" />
 
         <AnimeListItem
           v-else
+          tag="li"
           v-for="anime in animes"
+          :key="anime.mal_id"
           :anime="{
+            id: anime.mal_id,
             title: anime.title,
             type: anime.type,
             image: anime.images.jpg.image_url,
             airedFrom: anime.aired.from,
             genres: anime.genres.map((genre) => genre.name),
           }"
+          @click="handleSelectAnime"
         />
         <AnimeListEmpty v-if="animes && !animes.length" :search="search" />
       </ul>
