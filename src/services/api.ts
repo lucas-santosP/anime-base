@@ -33,6 +33,7 @@ const searchAnimeResponseSchema = z.object({
         from: z.string().optional().nullable(),
         to: z.string().optional().nullable(),
       }),
+      genres: z.object({ type: z.string(), name: z.string() }).array(),
     })
     .array(),
   pagination: z.object({
