@@ -1,5 +1,6 @@
+import { z } from "zod";
+import { searchAnimeResponseSchema, getAnimeDetailsSchema } from "./schemas";
 import { Zodios, makeErrors, makeApi } from "@zodios/core";
-import z from "zod";
 
 const BASE_URL = "https://api.jikan.moe/v4/";
 
@@ -16,39 +17,6 @@ const errors = makeErrors([
   },
 ]);
 
-const searchAnimeResponseSchema = z.object({
-  data: z
-    .object({
-      mal_id: z.number(),
-      title: z.string(),
-      type: z.string(),
-      images: z.object({
-        jpg: z.object({
-          image_url: z.string(),
-          small_image_url: z.string(),
-          large_image_url: z.string(),
-        }),
-      }),
-      aired: z.object({
-        from: z.string().optional().nullable(),
-        to: z.string().optional().nullable(),
-      }),
-      genres: z.object({ type: z.string(), name: z.string() }).array(),
-    })
-    .array(),
-  pagination: z.object({
-    last_visible_page: z.number(),
-    has_next_page: z.boolean(),
-    items: z.object({
-      count: z.number(),
-      total: z.number(),
-      per_page: z.number(),
-    }),
-  }),
-});
-
-export type ISearchAnimeResponse = z.infer<typeof searchAnimeResponseSchema>;
-
 const endpoints = makeApi([
   {
     method: "get",
@@ -60,6 +28,14 @@ const endpoints = makeApi([
       { type: "Query", name: "limit", schema: z.number().int().optional().default(5) },
       { type: "Query", name: "page", schema: z.number().int().optional() },
     ],
+    errors,
+  },
+  {
+    method: "get",
+    path: "/anime/:id/full",
+    alias: "getAnimeDetails",
+    response: getAnimeDetailsSchema,
+    parameters: [{ type: "Path", name: "id", schema: z.number().int() }],
     errors,
   },
 ]);
