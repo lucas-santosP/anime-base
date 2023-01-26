@@ -12,6 +12,7 @@ export function useSearchAnimes(search: Ref<string>) {
       return response.data;
     },
     enabled: queryEnabled,
+    staleTime: 30 * 1000,
     refetchOnWindowFocus: false,
   });
 }

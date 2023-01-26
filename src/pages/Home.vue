@@ -1,17 +1,20 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, watchEffect, onBeforeMount } from "vue";
 import { tw } from "@/utils/tw";
 import { useSearchAnimes } from "@/queries/useSearchAnimes";
 
 import { ElScrollbar } from "element-plus";
-import InputSearch from "@/components/InputSearch.vue";
+import InputSearch from "@/components/ui/InputSearch.vue";
 import AnimeListLoading from "@/components/anime-list/AnimeListLoading.vue";
 import AnimeListItem from "@/components/anime-list/AnimeListItem.vue";
 import AnimeListError from "@/components/anime-list/AnimeListError.vue";
 import AnimeListEmpty from "@/components/anime-list/AnimeListEmpty.vue";
+import { useRoute, useRouter } from "vue-router";
 
 const input = ref("");
 const search = ref("");
+const router = useRouter();
+const route = useRoute();
 
 const { isFetching, data: animes, error } = useSearchAnimes(search);
 
@@ -20,8 +23,20 @@ function handleSubmitSearch(e: Event) {
 }
 
 function handleSelectAnime(id: number) {
-  console.log("id", id);
+  router.push("/anime/" + id);
 }
+
+onBeforeMount(() => {
+  const querySearch = route.query["search"];
+  if (typeof querySearch === "string") {
+    input.value = querySearch;
+    search.value = querySearch;
+  }
+});
+
+watchEffect(() => {
+  router.push("/?search=" + search.value);
+});
 </script>
 
 <template>
@@ -53,7 +68,7 @@ function handleSelectAnime(id: number) {
             airedFrom: anime.aired.from,
             genres: anime.genres.map((genre) => genre.name),
           }"
-          @click="handleSelectAnime"
+          @select="handleSelectAnime"
         />
         <AnimeListEmpty v-if="animes && !animes.length" :search="search" />
       </ul>
