@@ -15,6 +15,7 @@
     "@vanilla-extract/vite-plugin": "^3.7.0",
     "@zodios/core": "^10.7.3",
     "axios": "^1.2.3",
+    "classnames": "^2.3.2",
     "element-plus": "^2.2.28",
     "sass": "^1.57.1",
     "tailwind-merge": "^1.8.1",

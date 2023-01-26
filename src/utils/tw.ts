@@ -1,2 +1,6 @@
 import { twMerge } from "tailwind-merge";
-export { twMerge as tw };
+import classNames from "classnames";
+
+export function tw(...args: classNames.ArgumentArray): string {
+  return twMerge(classNames(args));
+}

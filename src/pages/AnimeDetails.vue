@@ -37,9 +37,22 @@ function goBack() {
 
       <div :class="tw('flex flex-col px-4 gap-4')">
         <h2 :class="tw('text-2xl font-medium')">{{ data.title }}</h2>
-        <span>status: {{ data.status }}</span>
+        <span
+          :class="
+            tw([
+              'p-2 shadow-lg shadow-transparent bg-gray-600 border-gray-500 hover:shadow-gray-600/40',
+              'border rounded-md w-max transition-all cursor-default',
+              data.status.includes('Currently Airing') &&
+                'bg-green-600 border-green-700 hover:shadow-green-600/40',
+            ])
+          "
+        >
+          {{ data.status }}
+        </span>
 
-        {{ data }}
+        <p>
+          {{ JSON.stringify(data, undefined, 2) }}
+        </p>
       </div>
     </div>
   </div>
