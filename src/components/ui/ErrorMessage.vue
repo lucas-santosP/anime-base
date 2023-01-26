@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { tw } from "@/utils/tw";
+import { ZodiosError } from "@zodios/core";
 
-const props = defineProps<{ error: any }>();
+const props = defineProps<{ error: any; getErrorMessage?: (error: any) => string | void }>();
 
 function getErrorMessage(error: any) {
-  const message = "Ops! Something went wrong, try later.";
+  if (error instanceof ZodiosError) {
+    return "There is an internal error, try later.";
+  }
+  let message = props?.getErrorMessage ? props.getErrorMessage(error) : "";
+  if (!message) message = "Ops! Something went wrong, try later.";
   return error?.message || message;
 }
 </script>
