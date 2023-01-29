@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { ref, watchEffect, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { tw } from "@/utils/tw";
 import { useSearchAnimes } from "@/queries/useSearchAnimes";
+import { useUrlSearchParam } from "@/hooks/useUrlSearchParam";
+import { useRouter } from "vue-router";
 
 import { ElScrollbar } from "element-plus";
 import InputSearch from "@/components/ui/InputSearch.vue";
@@ -9,34 +11,22 @@ import AnimeListLoading from "@/components/anime-list/AnimeListLoading.vue";
 import AnimeListItem from "@/components/anime-list/AnimeListItem.vue";
 import AnimeListError from "@/components/anime-list/AnimeListError.vue";
 import AnimeListEmpty from "@/components/anime-list/AnimeListEmpty.vue";
-import { useRoute, useRouter } from "vue-router";
 
 const input = ref("");
-const search = ref("");
 const router = useRouter();
-const route = useRoute();
+const searchParam = useUrlSearchParam("search");
 
-const { isFetching, data: animes, error } = useSearchAnimes(search);
+const { isFetching, data: animes, error } = useSearchAnimes(searchParam);
 
 function handleSubmitSearch(e: Event) {
-  search.value = input.value;
+  searchParam.value = input.value.trim();
 }
 
 function handleSelectAnime(id: number) {
   router.push("/anime/" + id);
 }
 
-onBeforeMount(() => {
-  const querySearch = route.query["search"];
-  if (typeof querySearch === "string") {
-    input.value = querySearch;
-    search.value = querySearch;
-  }
-});
-
-watchEffect(() => {
-  router.push("/?search=" + search.value);
-});
+onBeforeMount(() => (input.value = searchParam.value));
 </script>
 
 <template>
@@ -70,7 +60,7 @@ watchEffect(() => {
           }"
           @select="handleSelectAnime"
         />
-        <AnimeListEmpty v-if="animes && !animes.length" :search="search" />
+        <AnimeListEmpty v-if="animes && !animes.length" :search="searchParam" />
       </ul>
     </el-scrollbar>
   </div>

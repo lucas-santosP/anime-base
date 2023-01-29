@@ -17,7 +17,7 @@ import { RouterLink } from "vue-router";
     </RouterLink>
 
     <RouterLink
-      to="/about"
+      to="/#"
       class="hover:underline hover:text-primary/70 text-primary transition-all duration-300"
     >
       About
