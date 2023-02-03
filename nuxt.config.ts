@@ -1,3 +1,5 @@
+const lifecycle = process.env.npm_lifecycle_event;
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
@@ -38,6 +40,10 @@ export default defineNuxtConfig({
   modules: ["@vue-macros/nuxt", "@element-plus/nuxt", "@nuxt/image-edge"],
   macros: {},
   elementPlus: {},
+
+  build: {
+    transpile: lifecycle === "build" ? ["element-plus"] : [],
+  },
 
   vite: {
     devBundler: "legacy",
