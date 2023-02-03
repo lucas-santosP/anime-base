@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { tw } from "@/utils/tw";
-import { RouterLink } from "vue-router";
 </script>
 
 <template>
@@ -17,7 +16,7 @@ import { RouterLink } from "vue-router";
 
     <div :class="tw('font-medium text-lg  text-gray-200')">
       Ops! No item found here, go back to the
-      <RouterLink to="/">search page</RouterLink>
+      <NuxtLink to="/">search page</NuxtLink>
       .
     </div>
   </div>
