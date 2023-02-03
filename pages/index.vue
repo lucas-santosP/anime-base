@@ -1,38 +1,26 @@
-<script lang="ts" setup>
-import { ref, onBeforeMount } from "vue";
-import { tw } from "@/utils/tw";
-import { useSearchAnimes } from "@/queries/useSearchAnimes";
-import { useUrlSearchParam } from "@/hooks/useUrlSearchParam";
-import { useRouter } from "vue-router";
-
-import { ElScrollbar } from "element-plus";
-import InputSearch from "@/components/ui/InputSearch.vue";
-import AnimeListLoading from "@/components/anime-list/AnimeListLoading.vue";
-import AnimeListItem from "@/components/anime-list/AnimeListItem.vue";
-import AnimeListError from "@/components/anime-list/AnimeListError.vue";
-import AnimeListEmpty from "@/components/anime-list/AnimeListEmpty.vue";
+<script setup lang="ts">
+definePageMeta({ title: "Home - Anime Base" });
 
 const input = ref("");
-const router = useRouter();
 const searchParam = useUrlSearchParam("search");
 
-const { isFetching, data: animes, error } = useSearchAnimes(searchParam);
+const { data: animes, error, isInitialLoading } = useSearchAnimes(searchParam);
 
 function handleSubmitSearch(e: Event) {
   searchParam.value = input.value.trim();
 }
 
 function handleSelectAnime(id: number) {
-  router.push("/anime/" + id);
+  navigateTo({ path: "/anime/" + id });
 }
 
-onBeforeMount(() => (input.value = searchParam.value));
+onMounted(() => (input.value = searchParam.value));
 </script>
 
 <template>
   <div :class="tw('w-full flex flex-col h-screen overflow-hidden')">
     <form @submit.prevent="handleSubmitSearch" :class="tw('my-5 px-4')">
-      <InputSearch
+      <UiInputSearch
         :value="input"
         name="search"
         @input="(value) => (input = value)"
@@ -40,13 +28,13 @@ onBeforeMount(() => (input.value = searchParam.value));
       />
     </form>
 
-    <el-scrollbar :class="tw('flex-1')">
+    <ElScrollbar :class="tw('flex-1')">
       <ul :class="tw('flex flex-col h-full overflow-y-auto pb-8 pt-2 px-4')">
         <AnimeListError v-if="error" :error="error" />
-        <AnimeListLoading v-if="isFetching" :repeat="5" />
+        <AnimeListLoading v-if="isInitialLoading" :repeat="5" />
 
         <AnimeListItem
-          v-else
+          v-if="animes"
           tag="li"
           v-for="anime in animes"
           :key="anime.mal_id"
@@ -62,6 +50,6 @@ onBeforeMount(() => (input.value = searchParam.value));
         />
         <AnimeListEmpty v-if="animes && !animes.length" :search="searchParam" />
       </ul>
-    </el-scrollbar>
+    </ElScrollbar>
   </div>
 </template>

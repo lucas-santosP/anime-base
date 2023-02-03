@@ -22,10 +22,12 @@ function getRandomInt(min: number, max: number): number {
       <div class="bg-gray-600 animate-pulse h-[20px] w-[20%]"></div>
       <div class="bg-gray-600 animate-pulse h-[20px] min-w-[40px] w-[10%]"></div>
       <div :class="tw('flex gap-2 mt-auto')">
-        <div
-          v-for="_i in getRandomInt(0, 3)"
-          class="bg-gray-600 animate-pulse h-[25px] w-[60px]"
-        ></div>
+        <ClientOnly>
+          <div
+            v-for="_i in getRandomInt(0, 3)"
+            class="bg-gray-600 animate-pulse h-[25px] w-[60px]"
+          ></div>
+        </ClientOnly>
       </div>
     </div>
   </div>

@@ -2,7 +2,11 @@
 import { tw } from "@/utils/tw";
 import { InputHTMLAttributes } from "vue";
 
-type IProps = InputHTMLAttributes & { value: string; placeholder?: string };
+interface IProps extends InputHTMLAttributes {
+  value: string;
+  placeholder?: string;
+}
+
 const props = defineProps<IProps>();
 const emit = defineEmits<{
   (e: "input", value: string): void;
@@ -11,7 +15,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div :class="tw('w-full relative ')">
+  <div :class="tw('w-full relative')">
     <input
       type="text"
       v-bind="props"

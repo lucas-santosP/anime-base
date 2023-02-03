@@ -1,18 +1,17 @@
 <script lang="ts" setup>
-import { useRoute, useRouter } from "vue-router";
-import { useAnimeDetails } from "@/queries/useAnimeDetails";
-import ErrorMessage from "@/components/ui/ErrorMessage.vue";
-import { tw } from "@/utils/tw";
+definePageMeta({ title: "Anime details - Anime Base" });
 
 const route = useRoute();
 const router = useRouter();
-const animeId = Number(route.params["id"]);
+const animeId = Number(route.params.id);
 
-const { data, isFetching, error } = useAnimeDetails(animeId);
+const { data, isFetching, error, suspense } = useAnimeDetails(animeId);
 
 function goBack() {
   router.back();
 }
+
+await suspense();
 </script>
 
 <template>
@@ -24,14 +23,15 @@ function goBack() {
     </div>
 
     <p v-if="isFetching">Loading...</p>
-    <ErrorMessage v-else-if="error || !data" :error="error" />
+    <UiErrorMessage v-else-if="error || !data" :error="error" />
 
     <div v-else :class="tw('flex')">
       <div>
-        <img
+        <NuxtImg
           :src="data.images.jpg.large_image_url"
-          alt="Cover"
+          :placeholder="true"
           :class="tw('w-[250px] min-w-[250px] object-cover')"
+          alt="Cover"
         />
       </div>
 
@@ -57,5 +57,3 @@ function goBack() {
     </div>
   </div>
 </template>
-
-<style scoped></style>
