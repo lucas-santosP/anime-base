@@ -13,7 +13,7 @@ import { tw } from "@/utils/tw";
     />
 
     <div
-      class="transition-all duration-300 absolute w-full h-full bg-primary/50 group-hover:bg-primary/80 rounded-full top-0 left-0 blur-[70px]"
+      class="hover:transition-all duration-300 absolute w-full h-full bg-primary/50 group-hover:bg-primary/80 rounded-full top-0 left-0 blur-[70px]"
     ></div>
   </div>
 </template>

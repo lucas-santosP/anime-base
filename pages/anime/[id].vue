@@ -41,7 +41,7 @@ await suspense();
           :class="
             tw([
               'p-2 shadow-lg shadow-transparent bg-gray-600 border-gray-500 hover:shadow-gray-600/40',
-              'border rounded-md w-max transition-all cursor-default',
+              'border rounded-md w-max hover:transition-all cursor-default',
               data.status.includes('Currently Airing') &&
                 'bg-green-600 border-green-700 hover:shadow-green-600/40',
             ])

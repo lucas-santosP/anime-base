@@ -33,7 +33,7 @@ const emit = defineEmits<{
       @submit="emit('submit')"
       :class="
         tw(
-          'outline-none focus:outline-none focus:ring rounded-r-md bg-none transition-all font-medium h-full px-5 hover:bg-gray-500/40 text-white absolute top-1/2 right-0 transform -translate-y-1/2'
+          'outline-none focus:outline-none focus:ring rounded-r-md bg-none hover:transition-all font-medium h-full px-5 hover:bg-gray-500/40 text-white absolute top-1/2 right-0 transform -translate-y-1/2'
         )
       "
     >

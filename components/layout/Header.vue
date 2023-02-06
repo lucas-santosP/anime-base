@@ -13,14 +13,14 @@
     <ul class="flex gap-4">
       <NuxtLink
         to="/"
-        class="hover:underline hover:text-primary/70 text-primary transition-all duration-300"
+        class="hover:underline hover:text-primary/70 text-primary hover:transition-all duration-300"
       >
         Home
       </NuxtLink>
 
       <NuxtLink
         to="/about"
-        class="hover:underline hover:text-primary/70 text-primary transition-all duration-300"
+        class="hover:underline hover:text-primary/70 text-primary hover:transition-all duration-300"
       >
         About
       </NuxtLink>

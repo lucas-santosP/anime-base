@@ -25,7 +25,7 @@ const emit = defineEmits<{
     tabindex="0"
     :class="
       tw([
-        'flex gap-8  p-2 cursor-pointer transition-all overflow-hidden outline-none ',
+        'flex gap-8  p-2 cursor-pointer hover:transition-all overflow-hidden outline-none ',
         'hover:bg-gray-700 focus:bg-gray-700 focus:ring',
       ])
     "
