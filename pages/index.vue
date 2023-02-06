@@ -1,10 +1,14 @@
 <script setup lang="ts">
 definePageMeta({ title: "Home - Anime Base" });
 
-const input = ref("");
 const searchParam = useUrlSearchParam("search");
+const input = ref(searchParam.value || "");
 
-const { data: animes, error, isInitialLoading } = useSearchAnimes(searchParam);
+const { data: animes, error, suspense, isInitialLoading } = useSearchAnimes(searchParam);
+
+if (searchParam.value) {
+  await suspense();
+}
 
 function handleSubmitSearch(e: Event) {
   searchParam.value = input.value.trim();
@@ -13,8 +17,6 @@ function handleSubmitSearch(e: Event) {
 function handleSelectAnime(id: number) {
   navigateTo({ path: "/anime/" + id });
 }
-
-onMounted(() => (input.value = searchParam.value));
 </script>
 
 <template>
