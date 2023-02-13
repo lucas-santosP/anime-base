@@ -4,7 +4,7 @@ import { tw } from "@/utils/tw";
 
 <template>
   <div class="relative group">
-    <NuxtImg
+    <img
       src="/images/logo.png"
       alt="Anime Base Logo"
       width="442px"

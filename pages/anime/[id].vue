@@ -1,17 +1,24 @@
 <script lang="ts" setup>
-definePageMeta({ title: "Anime details - Anime Base" });
+import { useAnimeDetails } from "@/queries/useAnimeDetails";
+import { tw } from "@/utils/tw";
+import { useRoute, useRouter } from "vue-router";
+import { useHead } from "@unhead/vue";
+import { computed } from "vue";
+import UiErrorMessage from "@/components/ui/ErrorMessage.vue";
 
 const route = useRoute();
 const router = useRouter();
 const animeId = Number(route.params.id);
 
-const { data, isFetching, error, suspense } = useAnimeDetails(animeId);
+const { data, isFetching, error } = useAnimeDetails(animeId);
 
 function goBack() {
   router.back();
 }
 
-await suspense();
+useHead({
+  title: computed(() => (data.value?.title ? data.value?.title + " details" : "Details")),
+});
 </script>
 
 <template>
@@ -27,9 +34,8 @@ await suspense();
 
     <div v-else :class="tw('flex')">
       <div>
-        <NuxtImg
+        <img
           :src="data.images.jpg.large_image_url"
-          :placeholder="true"
           :class="tw('w-[250px] min-w-[250px] object-cover')"
           alt="Cover"
         />

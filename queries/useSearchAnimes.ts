@@ -1,17 +1,16 @@
 import { apiClient } from "@/services/api";
+import { MaybeRef } from "@/types";
 import { useQuery } from "@tanstack/vue-query";
-import { throws } from "assert";
-import { computed, Ref } from "vue";
+import { get } from "@vueuse/shared";
+import { computed } from "vue";
 
-export function useSearchAnimes(search: Ref<string>) {
-  const queryEnabled = computed(() => !!search.value);
+export function useSearchAnimes(search: MaybeRef<string>) {
+  const queryEnabled = computed(() => !!get(search));
 
   return useQuery({
     queryKey: ["animes", search],
     queryFn: async () => {
-      if (!search.value) return [];
-
-      const response = await apiClient.searchAnime({ queries: { q: search.value } });
+      const response = await apiClient.searchAnime({ queries: { q: get(search) } });
       return response.data;
     },
     enabled: queryEnabled,

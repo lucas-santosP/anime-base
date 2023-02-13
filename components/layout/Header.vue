@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { tw } from "@/utils/tw";
+import { RouterLink } from "vue-router";
+import UiLogo from "@/components/ui/Logo.vue";
+</script>
+
 <template>
   <div
     :class="
@@ -6,24 +12,24 @@
       )
     "
   >
-    <NuxtLink to="/" :class="tw('max-w-[165px] p-1')">
+    <RouterLink to="/" :class="tw('max-w-[165px] p-1')">
       <UiLogo />
-    </NuxtLink>
+    </RouterLink>
 
     <ul class="flex gap-4">
-      <NuxtLink
+      <RouterLink
         to="/"
         class="hover:underline hover:text-primary/70 text-primary hover:transition-all duration-300"
       >
         Home
-      </NuxtLink>
+      </RouterLink>
 
-      <NuxtLink
+      <RouterLink
         to="/about"
         class="hover:underline hover:text-primary/70 text-primary hover:transition-all duration-300"
       >
         About
-      </NuxtLink>
+      </RouterLink>
     </ul>
   </div>
 </template>

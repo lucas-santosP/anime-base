@@ -1,21 +1,36 @@
 <script setup lang="ts">
-definePageMeta({ title: "Home - Anime Base" });
+import { useUrlSearchParam } from "@/composables/useUrlSearchParam";
+import { useSearchAnimes } from "@/queries/useSearchAnimes";
+import { tw } from "@/utils/tw";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+import UiInputSearch from "@/components/ui/InputSearch.vue";
+import AnimeListLoading from "@/components/anime-list/AnimeListLoading.vue";
+import AnimeListItem from "@/components/anime-list/AnimeListItem.vue";
+import AnimeListError from "@/components/anime-list/AnimeListError.vue";
+import AnimeListEmpty from "@/components/anime-list/AnimeListEmpty.vue";
+
+import { ElScrollbar } from "element-plus";
+import { useHead } from "@vueuse/head";
+
+useHead({
+  title: "Home",
+  titleTemplate: (title) => `${title} | Anime Base`,
+});
+
+const router = useRouter();
 const searchParam = useUrlSearchParam("search");
 const input = ref(searchParam.value || "");
 
-const { data: animes, error, suspense, isInitialLoading } = useSearchAnimes(searchParam);
-
-if (searchParam.value) {
-  await suspense();
-}
+const { data: animes, error, isInitialLoading } = useSearchAnimes(searchParam);
 
 function handleSubmitSearch(e: Event) {
   searchParam.value = input.value.trim();
 }
 
 function handleSelectAnime(id: number) {
-  navigateTo({ path: "/anime/" + id });
+  router.push({ path: "/anime/" + id });
 }
 </script>
 
