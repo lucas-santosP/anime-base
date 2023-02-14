@@ -35,6 +35,8 @@ const emit = defineEmits<{
     <img
       :src="props.anime.image"
       alt="Cover"
+      :width="130"
+      :height="100"
       :class="tw('h-[130px] w-[100px] min-w-[100px] object-cover border-gray-800 border')"
     />
 
