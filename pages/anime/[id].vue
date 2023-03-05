@@ -8,6 +8,7 @@ import UiErrorMessage from "@/components/ui/ErrorMessage.vue";
 import AnimeDetailsLoading from "@/components/anime-details/AnimeDetailsLoading.vue";
 import AnimeStatusBadge from "@/components/ui/AnimeStatusBadge.vue";
 import AnimeDetailsTitle from "@/components/anime-details/AnimeDetailsTitle.vue";
+import AnimeRating from "@/components/ui/AnimeRating.vue";
 
 const route = useRoute();
 const animeId = Number(route.params.id);
@@ -43,6 +44,8 @@ useHead({
         <AnimeStatusBadge :status="data.status" />
 
         <p>{{ data.rating }}</p>
+        <p>Source: {{ data.source }}</p>
+        <AnimeRating v-if="data.score" :rating="data.score" />
 
         <p>
           {{ JSON.stringify(data, undefined, 2) }}

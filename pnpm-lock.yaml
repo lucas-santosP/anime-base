@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@heroicons/vue': ^2.0.16
   '@tanstack/vue-query': ^4.22.4
   '@testing-library/vue': ^6.6.1
   '@types/node': ^18.11.18
@@ -36,6 +37,7 @@ specifiers:
   zod: ^3.20.2
 
 dependencies:
+  '@heroicons/vue': 2.0.16_vue@3.2.47
   '@tanstack/vue-query': 4.24.10_vue@3.2.47
   '@types/node': 18.14.6
   '@vanilla-extract/css': 1.9.5
@@ -501,6 +503,14 @@ packages:
     resolution: {integrity: sha512-lK9cZUrHSJLMVAdCvDqs6Ug8gr0wmqksYiaoj/bxj2gweRQkSuhg2/V6Jswz2KiQ0RAULbqw1oQDJIMpQ5GfGA==}
     dependencies:
       '@floating-ui/core': 1.2.2
+    dev: false
+
+  /@heroicons/vue/2.0.16_vue@3.2.47:
+    resolution: {integrity: sha512-saVAExLlGu6epqmS543qeWd/UOJUxpTJyK9aXeFGqS3VIW8X7yyJQmUGT40A38gBEAxMOdTdH9jFSh8sjPFM7A==}
+    peerDependencies:
+      vue: '>= 3'
+    dependencies:
+      vue: 3.2.47
     dev: false
 
   /@istanbuljs/schema/0.1.3:
