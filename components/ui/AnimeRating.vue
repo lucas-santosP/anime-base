@@ -20,7 +20,9 @@ const itemsActivePercent = computed(() => {
   let foundLimit = false;
 
   for (let index = 0; index < RATING_MAX_SCALE; index++) {
-    if (rating > index + 1) {
+    if (rating === 0) {
+      resultItems.push(0);
+    } else if (rating > index + 1) {
       resultItems.push(100);
     } else {
       if (foundLimit) {
@@ -41,8 +43,8 @@ const itemsActivePercent = computed(() => {
 </script>
 
 <template>
-  <ElTooltip effect="rating" placement="top" :content="`${ratingOnMaxScaleRange}`">
-    <div class="flex w-max py-1">
+  <ElTooltip effect="rating" placement="top" :content="`Rating ${ratingOnMaxScaleRange}`">
+    <div class="flex w-max py-1 cursor-default">
       <div class="relative w-6 h-6" v-for="activePercent in itemsActivePercent">
         <div
           v-if="activePercent"

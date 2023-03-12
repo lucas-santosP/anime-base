@@ -5,7 +5,7 @@ export const searchAnimeResponseSchema = z.object({
     .object({
       mal_id: z.number(),
       title: z.string(),
-      type: z.string(),
+      type: z.string().nullable(),
       images: z.object({
         jpg: z.object({
           image_url: z.string(),
@@ -115,6 +115,24 @@ export const getAnimeDetailsSchema = z.object({
     external: z.array(z.object({ name: z.string(), url: z.string() })),
     streaming: z.array(z.object({ name: z.string(), url: z.string() })),
   }),
+});
+
+export const getAnimeCharactersSchema = z.object({
+  data: z.array(
+    z.object({
+      character: z.object({
+        mal_id: z.number(),
+        url: z.string(),
+        images: z.object({
+          jpg: z.object({ image_url: z.string() }),
+          webp: z.object({ image_url: z.string(), small_image_url: z.string() }),
+        }),
+        name: z.string(),
+      }),
+      role: z.string(),
+      favorites: z.number(),
+    })
+  ),
 });
 
 export type ISearchAnimeResponse = z.infer<typeof searchAnimeResponseSchema>;

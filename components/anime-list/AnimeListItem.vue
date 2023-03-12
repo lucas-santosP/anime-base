@@ -7,7 +7,7 @@ const props = defineProps<{
   anime: {
     id: number;
     title: string;
-    type: string;
+    type: string | null;
     airedFrom?: string | null;
     image: string;
     genres: string[];
@@ -42,7 +42,7 @@ const emit = defineEmits<{
 
     <div :class="tw('flex flex-col w-full overflow-hidden')">
       <p :class="tw('font-medium text-lg truncate')">{{ props.anime.title }}</p>
-      <p :class="tw('text-gray-300 text-lg')">{{ props.anime.type }}</p>
+      <p :class="tw('text-gray-300 text-lg')">Type: {{ props.anime.type }}</p>
       <p>{{ props.anime.airedFrom && formatDate(props.anime.airedFrom, { dateOnly: true }) }}</p>
 
       <div :class="tw('mt-auto flex gap-2')">

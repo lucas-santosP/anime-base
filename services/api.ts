@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { searchAnimeResponseSchema, getAnimeDetailsSchema } from "./schemas";
+import {
+  searchAnimeResponseSchema,
+  getAnimeDetailsSchema,
+  getAnimeCharactersSchema,
+} from "./schemas";
 import { Zodios, makeErrors, makeApi } from "@zodios/core";
 
 const BASE_URL = "https://api.jikan.moe/v4/";
@@ -35,6 +39,14 @@ const endpoints = makeApi([
     path: "/anime/:id/full",
     alias: "getAnimeDetails",
     response: getAnimeDetailsSchema,
+    parameters: [{ type: "Path", name: "id", schema: z.number().int() }],
+    errors,
+  },
+  {
+    method: "get",
+    path: "/anime/:id/characters",
+    alias: "getAnimeCharacters",
+    response: getAnimeCharactersSchema,
     parameters: [{ type: "Path", name: "id", schema: z.number().int() }],
     errors,
   },
