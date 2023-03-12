@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useUrlSearchParam } from "@/composables/useUrlSearchParam";
 import { useSearchAnimes } from "@/queries/useSearchAnimes";
-import { tw } from "@/utils/tw";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -14,10 +13,7 @@ import AnimeListEmpty from "@/components/anime-list/AnimeListEmpty.vue";
 import { ElScrollbar } from "element-plus";
 import { useHead } from "@vueuse/head";
 
-useHead({
-  title: "Home",
-  titleTemplate: (title) => `${title} | Anime Base`,
-});
+useHead({ title: "Home | Anime Base" });
 
 const router = useRouter();
 const searchParam = useUrlSearchParam("search");
@@ -35,8 +31,10 @@ function handleSelectAnime(id: number) {
 </script>
 
 <template>
-  <div :class="tw('w-full flex flex-col h-screen overflow-hidden')">
-    <form @submit.prevent="handleSubmitSearch" :class="tw('my-5 px-4')">
+  <div class="w-full flex flex-col p-4 h-content overflow-hidden">
+    <h1 class="text-2xl font-medium mb-6">Home</h1>
+
+    <form @submit.prevent="handleSubmitSearch" class="mb-2">
       <UiInputSearch
         :value="input"
         name="search"
@@ -45,8 +43,8 @@ function handleSelectAnime(id: number) {
       />
     </form>
 
-    <ElScrollbar :class="tw('flex-1')">
-      <ul :class="tw('flex flex-col h-full overflow-y-auto pb-8 pt-2 px-4')">
+    <ElScrollbar class="flex-1">
+      <ul class="flex flex-col h-full overflow-y-auto pb-6">
         <AnimeListError v-if="error" :error="error" />
         <AnimeListLoading v-if="isInitialLoading" :repeat="5" />
 

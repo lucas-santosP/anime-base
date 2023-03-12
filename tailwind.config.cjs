@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         primary: "#42e0d2",
       },
+      height: {
+        content: "calc(100vh - 89px)",
+      },
     },
   },
   plugins: [],
