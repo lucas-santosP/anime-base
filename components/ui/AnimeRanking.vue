@@ -13,8 +13,17 @@ const type = computed(() => {
 </script>
 
 <template>
-  <ElTooltip effect="rating" placement="top" :content="`Ranking #${props.rank}`">
-    <ElTag effect="dark" :type="type" class="w-full max-w-[80px] cursor-default" size="large">
+  <ElTooltip
+    effect="rating"
+    placement="top"
+    :content="`Ranking #${props.rank}`"
+  >
+    <ElTag
+      effect="dark"
+      :type="type"
+      class="w-full max-w-[80px] cursor-default"
+      size="large"
+    >
       <span class="ml-[-5px]">#</span>
       <span class="text-base">{{ rank }}</span>
     </ElTag>

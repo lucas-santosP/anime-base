@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useAnimeDetails } from "@/queries/useAnimeDetails";
 import { useAnimeCharacters } from "@/queries/useAnimeCharacters";
-import { tw } from "@/utils/tw";
 import { useRoute } from "vue-router";
 import { useHead } from "@vueuse/head";
 import { computed } from "vue";
