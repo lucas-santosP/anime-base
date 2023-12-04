@@ -9,7 +9,7 @@ interface IProps extends InputHTMLAttributes {
 
 const props = defineProps<IProps>();
 const emit = defineEmits<{
-  (e: "input", value: string): void;
+  (e: "input-value", value: string): void;
   (e: "submit"): void;
 }>();
 </script>
@@ -19,7 +19,7 @@ const emit = defineEmits<{
     <input
       type="text"
       v-bind="props"
-      @input="(e) => emit('input', (e.target as HTMLInputElement).value)"
+      @input="(e) => emit('input-value', (e.target as HTMLInputElement).value)"
       :class="
         tw(
           'w-full bg-gray-700 p-2 rounded-md focus:ring focus:ring-blue-600/70 outline-none focus:outline-none border-2 border-gray-500',

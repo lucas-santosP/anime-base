@@ -14,10 +14,6 @@ export function useUrlSearchParam(key: string) {
   watch(
     () => param.value,
     () => {
-      if (!param.value) {
-        return;
-      }
-
       router.push({
         path: route.path,
         query: { ...route.query, [key]: param.value ? param.value : undefined },

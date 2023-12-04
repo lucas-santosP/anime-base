@@ -17,7 +17,7 @@ useHead({ title: "Home | Anime Base" });
 
 const router = useRouter();
 const searchParam = useUrlSearchParam("search");
-const input = ref(searchParam.value || "");
+const input = ref<string>(searchParam.value || "");
 
 const { data: animes, error, isInitialLoading } = useSearchAnimes(searchParam);
 
@@ -38,7 +38,7 @@ function handleSelectAnime(id: number) {
       <UiInputSearch
         :value="input"
         name="search"
-        @input="(value) => (input = value)"
+        @input-value="(value) => (input = value)"
         placeholder="Search an anime..."
       />
     </form>
