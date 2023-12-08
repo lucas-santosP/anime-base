@@ -28,6 +28,8 @@ function handleSubmitSearch(e: Event) {
 function handleSelectAnime(id: number) {
   router.push({ path: "/anime/" + id });
 }
+
+const placeholder = ref("Search...");
 </script>
 
 <template>
@@ -36,11 +38,11 @@ function handleSelectAnime(id: number) {
 
     <form @submit.prevent="handleSubmitSearch" class="mb-2">
       <UiInputSearch
-        :value="input"
         name="search"
-        @input-value="(value) => (input = value)"
         placeholder="Search an anime..."
+        v-model="input"
       />
+      <button type="button" @click="placeholder = 'wtf'">change</button>
     </form>
 
     <ElScrollbar class="flex-1">
